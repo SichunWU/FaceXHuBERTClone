@@ -7,7 +7,6 @@ import torch
 import torch.nn as nn
 from data_loader import get_dataloaders
 from faceXhubert import FaceXHuBERT
-# test changes
 
 def plot_losses(train_losses, val_losses):
     plt.plot(train_losses, label="Training loss")
