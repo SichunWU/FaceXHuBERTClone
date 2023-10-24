@@ -8,14 +8,14 @@ import pyrender
 
 train_folder = "render_folder/"
 results_folder = "result/"
-audio_folder = "BIWI/wav/"
+audio_folder = "multiface/wav/"
 video_woA_folder = "renders/"+ train_folder+ "videos_no_audio/"
 video_wA_folder = "renders/"+ train_folder+ "videos_with_audio/"
 frames_folder = "renders/"+ train_folder+ "temp/frames/"
 
 seqs = os.listdir(results_folder)
 
-fps = 25
+fps = 30
 fourcc = cv2.VideoWriter_fourcc(*'MP4V')
 
 cam = pyrender.PerspectiveCamera(yfov=np.pi / 3.0, aspectRatio=1.414)
@@ -35,13 +35,13 @@ for seq in seqs:
         video_wA_path = video_wA_folder + seq.split('.')[0] + '.mp4'
         video = cv2.VideoWriter(video_woA_path, fourcc, fps, (640, 480))
         seq_path = results_folder + seq
-        subject_template_path = "BIWI/templates/"+ seq.split('_')[0] + ".obj"
+        subject_template_path = "multiface/templates/"+ seq.split('_')[0] + ".obj"
         audio = seq.split('_')[0]+'_'+seq.split('_')[1]+'.wav'
         audio_path = audio_folder + audio
         ref_mesh = trimesh.load_mesh(subject_template_path, process=False)
         
         seq = np.load(seq_path)
-        seq = np.reshape(seq,(-1,70110//3,3))
+        seq = np.reshape(seq,(-1,6172,3))
         ref_mesh.vertices = seq[0,:,:]
         py_mesh = pyrender.Mesh.from_trimesh(ref_mesh)
         for f in range(seq.shape[0]):
