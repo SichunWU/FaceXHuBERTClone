@@ -34,7 +34,7 @@ light = pyrender.DirectionalLight(color=[1.0, 1.0, 1.0], intensity=10.0)
 
 r = pyrender.OffscreenRenderer(640, 480)
 
-cv2.namedWindow('Preview', cv2.WINDOW_NORMAL)
+#cv2.namedWindow('Preview', cv2.WINDOW_NORMAL)
 for seq in seqs:
     if seq.endswith('.npy'):
         video_woA_path = video_woA_folder + seq.split('.')[0] + '.mp4'
