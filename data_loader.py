@@ -17,7 +17,7 @@ class Dataset(data.Dataset):
         self.subjects_dict = subjects_dict
         self.data_type = data_type
         self.one_hot_labels = np.eye(len(subjects_dict["train"]))
-        self.emo_one_hot_labels = np.eye(2)
+        # self.emo_one_hot_labels = np.eye(2)
 
     def __getitem__(self, index):
         """Returns one data pair (source and target)."""
@@ -31,12 +31,12 @@ class Dataset(data.Dataset):
             one_hot = self.one_hot_labels[self.subjects_dict["train"].index(subject)]
         else:
             one_hot = self.one_hot_labels
-        if sentence_id > 40:
-            emo_one_hot = self.emo_one_hot_labels[1]
-        else:
-            emo_one_hot = self.emo_one_hot_labels[0]
+        # if sentence_id > 40:
+        #     emo_one_hot = self.emo_one_hot_labels[1]
+        # else:
+        #     emo_one_hot = self.emo_one_hot_labels[0]
 
-        return torch.FloatTensor(audio), vertice, torch.FloatTensor(template), torch.FloatTensor(one_hot), file_name, torch.FloatTensor(emo_one_hot)
+        return torch.FloatTensor(audio), vertice, torch.FloatTensor(template), torch.FloatTensor(one_hot), file_name #, torch.FloatTensor(emo_one_hot)
 
     def __len__(self):
         return self.len
@@ -83,7 +83,7 @@ def read_data(args):
 
     print(len(args.train_subjects))
 
-    splits = {'BIWI': {'train': list(range(1, 37)) + list(range(41, 77)), 'val': list(range(37, 39)) + list(range(77, 79)), 'test': list(range(39, 41)) + list(range(79, 81))}}
+    splits = {'multiface': {'train': list(range(1, 40)), 'val': list(range(41, 45)), 'test': list(range(46, 50))}}
    
     for k, v in data.items():
         subject_id = "_".join(k.split("_")[:-1])
