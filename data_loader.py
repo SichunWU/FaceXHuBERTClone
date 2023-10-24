@@ -17,7 +17,7 @@ class Dataset(data.Dataset):
         self.subjects_dict = subjects_dict
         self.data_type = data_type
         self.one_hot_labels = np.eye(len(subjects_dict["train"]))
-        # self.emo_one_hot_labels = np.eye(2)
+        self.emo_one_hot_labels = np.eye(2)
 
     def __getitem__(self, index):
         """Returns one data pair (source and target)."""
