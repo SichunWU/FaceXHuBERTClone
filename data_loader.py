@@ -84,7 +84,7 @@ def read_data(args):
 
     print(len(args.train_subjects))
 
-    splits = {'multiface': {'train': list(range(1, 40)), 'val': list(range(41, 45)), 'test': list(range(46, 50))}}
+    splits = {'multiface': {'train': list(range(1, 41)), 'val': list(range(41, 46)), 'test': list(range(46, 51))}}
    
     for k, v in data.items():
         subject_id = "_".join(k.split("_")[:-1])
