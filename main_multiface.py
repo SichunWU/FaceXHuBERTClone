@@ -146,7 +146,7 @@ def main():
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1, help='gradient accumulation')
     parser.add_argument("--max_epoch", type=int, default=100, help='number of epochs')
     parser.add_argument("--device", type=str, default="cuda")
-    parser.add_argument("--template_file", type=str, default="templates_scaled.pkl", help='path of the train subject templates')
+    parser.add_argument("--template_file", type=str, default="templates.pkl", help='path of the train subject templates')
     parser.add_argument("--save_path", type=str, default="save", help='path of the trained models')
     parser.add_argument("--result_path", type=str, default="result", help='path to the predictions')
     parser.add_argument("--train_subjects", type=str, default="1 2 3 4 5 6 7 8 9 10 11 12 13")
