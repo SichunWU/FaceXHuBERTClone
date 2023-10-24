@@ -35,8 +35,9 @@ class Dataset(data.Dataset):
         #     emo_one_hot = self.emo_one_hot_labels[1]
         # else:
         #     emo_one_hot = self.emo_one_hot_labels[0]
+        emo_one_hot = self.emo_one_hot_labels[0]
 
-        return torch.FloatTensor(audio), vertice, torch.FloatTensor(template), torch.FloatTensor(one_hot), file_name #, torch.FloatTensor(emo_one_hot)
+        return torch.FloatTensor(audio), vertice, torch.FloatTensor(template), torch.FloatTensor(one_hot), file_name, torch.FloatTensor(emo_one_hot)
 
     def __len__(self):
         return self.len

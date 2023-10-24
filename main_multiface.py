@@ -34,22 +34,22 @@ def trainer(args, train_loader, dev_loader, model, optimizer, criterion, epoch=1
         pbar = tqdm(enumerate(train_loader),total=len(train_loader))
         optimizer.zero_grad()
 
-        for i, (audio, vertice, template, one_hot, file_name) in pbar:  #, emo_one_hot
+        for i, (audio, vertice, template, one_hot, file_name, emo_one_hot) in pbar:
             iteration += 1
             vertice = str(vertice[0])
             vertice = np.load(vertice,allow_pickle=True)
             vertice = vertice.astype(np.float32)
             vertice = torch.from_numpy(vertice)
             vertice = torch.unsqueeze(vertice,0)
-            audio, vertice, template, one_hot = audio.to(device="cuda"), vertice.to(device="cuda"), template.to(device="cuda"), one_hot.to(device="cuda") #, emo_one_hot.to(device="cuda") , emo_one_hot
-            loss = model(audio, template,  vertice, one_hot, criterion) #, emo_one_hot
+            audio, vertice, template, one_hot, emo_one_hot  = audio.to(device="cuda"), vertice.to(device="cuda"), template.to(device="cuda"), one_hot.to(device="cuda"), emo_one_hot.to(device="cuda")
+            loss = model(audio, template,  vertice, one_hot, emo_one_hot, criterion)
 
             loss.backward()
             loss_log.append(loss.item())
             if i % args.gradient_accumulation_steps==0:
                 optimizer.step()
                 optimizer.zero_grad()
-                del audio, vertice, template, one_hot #, emo_one_hot
+                del audio, vertice, template, one_hot, emo_one_hot
                 torch.cuda.empty_cache()
 
             pbar.set_description("(Epoch {}, iteration {}) TRAIN LOSS:{:.8f}".format((e+1), iteration ,np.mean(loss_log)))
