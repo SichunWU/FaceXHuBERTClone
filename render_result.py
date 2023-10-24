@@ -24,11 +24,17 @@ camera_pose = np.array([[1.0, 0,   0.0,   0.00],
                         [0.0,  0.0,   1.0, -1.6],
                         [0.0,  0.0, 0.0, 1.0]])
 
+camera_pose = np.array([[1.0, 0, 0.0, 0.00],
+                        [0.0, 1.0, 0.0, 0.00],
+                        [0.0, 0.0, 1.0, 3.0],
+                        [0.0, 0.0, 0.0, 1.0]])
+
 
 light = pyrender.DirectionalLight(color=[1.0, 1.0, 1.0], intensity=10.0)
 
 r = pyrender.OffscreenRenderer(640, 480)
 
+cv2.namedWindow('Preview', cv2.WINDOW_NORMAL)
 for seq in seqs:
     if seq.endswith('.npy'):
         video_woA_path = video_woA_folder + seq.split('.')[0] + '.mp4'
@@ -57,6 +63,9 @@ for seq in seqs:
             output_frame = frames_folder + "frame" + str(f) + ".jpg"
             cv2.imwrite(output_frame, color)
             frame = cv2.imread(output_frame)
+            # preview
+            # cv2.imshow('Preview', frame)
+            # cv2.waitKey(1)
             video.write(frame)
         video.release()
         
